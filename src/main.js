@@ -1,19 +1,16 @@
-import {createHeaderProfile} from './components/header-profile.js';
-import {createMainNav} from './components/main-nav.js';
-import {createSortBlock} from './components/sort-block.js';
-import {createFilmsBlock} from './components/films-block.js';
-import {createFilmsListBlock} from './components/films-list-block.js';
-import {createFilmTemplate} from './components/film-template.js';
-import {createTopRatedFilms} from './components/top-rated-films.js';
-import {createMostCommentedFilms} from './components/most-commented-films.js';
-import {createFooterStatisticsInfo} from './components/footer-statistics-info.js';
+import {createHeaderProfile} from './components/header-profile';
+import {createMainNav} from './components/main-nav';
+import {createSortBlock} from './components/sort-block';
+import {createFilmsBlock} from './components/films-block';
+import {createFilmsListBlock} from './components/films-list-block';
+import {createFilmTemplate} from './components/film-template';
+import {createTopRatedFilms} from './components/top-rated-films';
+import {createMostCommentedFilms} from './components/most-commented-films';
+import {createFooterStatisticsInfo} from './components/footer-statistics-info';
+import {renderComponent} from './components/utils';
 
 const TOTAL_NUMBER_OF_CARDS = 5;
 const TOP_TWO = 2;
-
-const renderComponent = (container, template, place = `beforeend`) => {
-  container.insertAdjacentHTML(place, template);
-};
 
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
