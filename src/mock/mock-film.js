@@ -56,11 +56,10 @@ const shuffle = (array) => {
 
 const generateComment = () => {
   return {
-    text: shuffle(filmsDescription).slice(0, getRandomIntegerNumber(1, 5)),
-    emoji: emojies[getRandomIntegerNumber(0, 3)],
+    text: shuffle(filmsDescription).slice(0, getRandomIntegerNumber(1, 5)).join(``),
+    emoji: getRandomItem(emojies),
     author: `Pierre Dunn`,
-    date: new Date(getRandomIntegerNumber(new Date(2010, 1, 1).getTime(), new Date(2020, 1, 1).getTime())),
-    deleteButton: `<button class="film-details__comment-delete">Delete</button>`
+    date: new Date(getRandomIntegerNumber(new Date(2010, 1, 1).getTime(), new Date(2020, 1, 1).getTime()))
   };
 };
 
@@ -73,13 +72,11 @@ const generateFilm = () => {
     director: `Pupa Lupson`,
     screenwriters: `screenwriters`,
     actors: `actors`,
-    year: `1939`,
-    releaseDate: `01 April 1939`,
+    releaseDate: new Date(getRandomIntegerNumber(new Date(2010, 1, 1).getTime(), new Date(2020, 1, 1).getTime())),
     country: `USA`,
     runtime: `1h 25m`,
     genres: shuffle(genres).slice(0, getRandomIntegerNumber(1, 6))[0],
-    description: shuffle(filmsDescription).slice(0, getRandomIntegerNumber(1, 5)),
-    commentsCount: `5 comments`,
+    description: shuffle(filmsDescription).slice(0, getRandomIntegerNumber(1, 5)).join(`s`),
     comments: Array.from({length: getRandomIntegerNumber(0, 5)}, generateComment)
   };
 };

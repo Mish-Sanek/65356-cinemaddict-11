@@ -1,3 +1,4 @@
+import {createFilmDetailTemplate} from './components/film-detail-template';
 import {createHeaderProfile} from './components/header-profile';
 import {createMainNav} from './components/main-nav';
 import {createSortBlock} from './components/sort-block';
@@ -5,6 +6,7 @@ import {createFilmsBlock} from './components/films-block';
 import {createFilmsListBlock} from './components/films-list-block';
 import {createFilmTemplate} from './components/film-template';
 import {generateFilms} from './mock/mock-film';
+import {generateFilters} from './mock/filters';
 import {createTopRatedFilms} from './components/top-rated-films';
 import {createMostCommentedFilms} from './components/most-commented-films';
 import {createFooterStatisticsInfo} from './components/footer-statistics-info';
@@ -18,14 +20,15 @@ const CARD_COUNT_BY_BUTTON = 5;
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 const footerStatistics = document.querySelector(`.footer__statistics`);
+const films = generateFilms(FILM_COUNT);
+const filters = generateFilters(films);
 
 renderComponent(header, createHeaderProfile());
 renderComponent(main, createMainNav());
-renderComponent(main, createSortBlock());
+renderComponent(main, createSortBlock(filters));
 renderComponent(main, createFilmsBlock());
 
 const filmsBlock = document.querySelector(`.films`);
-const films = generateFilms(FILM_COUNT);
 
 renderComponent(filmsBlock, createFilmsListBlock());
 
@@ -60,3 +63,26 @@ films.slice(0, TOP_TWO).forEach((film) => renderComponent(topRatedFilms, createF
 films.slice(0, TOP_TWO).forEach((film) => renderComponent(mostCommentedFilms, createFilmTemplate(film)));
 
 renderComponent(footerStatistics, createFooterStatisticsInfo());
+
+const filmPoster = main.querySelectorAll(`.film-card__poster`);
+const filmTitle = main.querySelectorAll(`.film-card__title`);
+const filmComments = main.querySelectorAll(`.film-card__comments`);
+
+const openFilmDetail = () => {
+  renderComponent(document.body, createFilmDetailTemplate());
+};
+
+for (let i = 0; i < filmPoster.length; i++) {
+  filmPoster[i].addEventListener(`click`, openFilmDetail);
+}
+
+for (let i = 0; i < filmTitle.length; i++) {
+  filmTitle[i].addEventListener(`click`, openFilmDetail);
+}
+
+for (let i = 0; i < filmComments.length; i++) {
+  filmComments[i].addEventListener(`click`, openFilmDetail);
+}
+
+const totalFilms = document.querySelector(`.footer__statistics p`);
+totalFilms.textContent = `${films.length} movies inside`;
