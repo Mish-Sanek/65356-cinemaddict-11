@@ -10,7 +10,7 @@ import {generateFilters} from './mock/filters';
 import {createTopRatedFilms} from './components/top-rated-films';
 import {createMostCommentedFilms} from './components/most-commented-films';
 import {createFooterStatisticsInfo} from './components/footer-statistics-info';
-import {renderComponent} from './components/utils';
+import {renderComponent, getTopRatedFilms, getMostCommentedFilms} from './components/utils';
 
 const TOP_TWO = 2;
 const FILM_COUNT = 20;
@@ -55,12 +55,18 @@ showMoreBtn.addEventListener(`click`, () => {
 renderComponent(filmsBlock, createTopRatedFilms());
 renderComponent(filmsBlock, createMostCommentedFilms());
 
-const filmsExtraContainer = document.querySelectorAll(`.films-list--extra .films-list__container`);
-const topRatedFilms = filmsExtraContainer[0];
-const mostCommentedFilms = filmsExtraContainer[1];
+const ratedContainerElements = filmsBlock.querySelectorAll(`section.films-list--extra > .films-list__container`);
 
-films.slice(0, TOP_TWO).forEach((film) => renderComponent(topRatedFilms, createFilmTemplate(film)));
-films.slice(0, TOP_TWO).forEach((film) => renderComponent(mostCommentedFilms, createFilmTemplate(film)));
+Array.from(ratedContainerElements).forEach((it) => {
+  switch (it.previousElementSibling.firstChild.data) {
+    case `Top rated`:
+      getTopRatedFilms(films, TOP_TWO).forEach((card) => renderComponent(it, createFilmTemplate(card)));
+      break;
+    case `Most commented`:
+      getMostCommentedFilms(films, TOP_TWO).forEach((card) => renderComponent(it, createFilmTemplate(card)));
+      break;
+  }
+});
 
 renderComponent(footerStatistics, createFooterStatisticsInfo());
 
