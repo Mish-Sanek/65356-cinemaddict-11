@@ -6,8 +6,8 @@ const createFilterMarkup = (filter, isActive) => {
     ${isActive ? `main-navigation__item--active` : ``}">${title}
       ${count === 0 ? `` : `<span class="main-navigation__item-count">${count}</span>`}
     </a>`
-  )
-}
+  );
+};
 
 export const createSortBlock = (filters) => {
   const filtersMarkup = filters.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
