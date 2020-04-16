@@ -60,10 +60,10 @@ const ratedContainerElements = filmsBlock.querySelectorAll(`section.films-list--
 Array.from(ratedContainerElements).forEach((it) => {
   switch (it.previousElementSibling.firstChild.data) {
     case `Top rated`:
-      getTopRatedFilms(films, TOP_TWO).forEach((card) => renderComponent(it, createFilmTemplate(card)));
+      getTopRatedFilms(films, TOP_TWO).forEach((film) => renderComponent(it, createFilmTemplate(film)));
       break;
     case `Most commented`:
-      getMostCommentedFilms(films, TOP_TWO).forEach((card) => renderComponent(it, createFilmTemplate(card)));
+      getMostCommentedFilms(films, TOP_TWO).forEach((film) => renderComponent(it, createFilmTemplate(film)));
       break;
   }
 });
@@ -75,7 +75,7 @@ const filmTitle = main.querySelectorAll(`.film-card__title`);
 const filmComments = main.querySelectorAll(`.film-card__comments`);
 
 const openFilmDetail = () => {
-  renderComponent(document.body, createFilmDetailTemplate());
+  renderComponent(document.body, createFilmDetailTemplate(films[0]));
 };
 
 for (let i = 0; i < filmPoster.length; i++) {

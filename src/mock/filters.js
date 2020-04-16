@@ -6,17 +6,17 @@ export const generateFilters = (films) => {
 
   return filters.map((it) => {
     switch (it) {
-      case `All`:
+      case filters[0]:
         index = films.length;
         break;
-      case `Watchlist`:
-        index = films.filter((card) => card.isWatched).length;
+      case filters[1]:
+        index = films.filter((film) => film.isWatched).length;
         break;
-      case `History`:
-        index = films.filter((card) => card.isLookingThrough).length;
+      case filters[2]:
+        index = films.filter((film) => film.isLookingThrough).length;
         break;
-      case `Favorites`:
-        index = films.filter((card) => card.isFavorites).length;
+      case filters[3]:
+        index = films.filter((film) => film.isFavorites).length;
         break;
     }
 
