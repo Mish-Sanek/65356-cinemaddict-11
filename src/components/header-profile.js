@@ -21,6 +21,8 @@ const createHeaderProfile = (amount) => {
   );
 };
 
+// не обращайте внимание,в следующем пр уберу это. Дико натупил с гитом и не могу разобраться
+
 export default class HeaderProfile {
   constructor(amount) {
     this._amount = amount;
