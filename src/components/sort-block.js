@@ -1,20 +1,33 @@
-const createFilterMarkup = (filter, isActive) => {
-  const {title, count} = filter;
+import {createElement} from '../components/utils';
 
-  return (
-    `<a href="#${title}" class="main-navigation__item
-    ${isActive ? `main-navigation__item--active` : ``}">${title}
-      ${count === 0 ? `` : `<span class="main-navigation__item-count">${count}</span>`}
-    </a>`
-  )
-}
-
-export const createSortBlock = (filters) => {
-  const filtersMarkup = filters.map((it, i) => createFilterMarkup(it, i === 0)).join(`\n`);
-
+export const createSortBlock = () => {
   return (
     `<ul class="sort">
-      ${filtersMarkup}
+      <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
+      <li><a href="#" class="sort__button">Sort by date</a></li>
+      <li><a href="#" class="sort__button">Sort by rating</a></li>
     </ul>`
   );
 };
+
+export default class Sort {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createSortBlock();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

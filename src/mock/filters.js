@@ -1,28 +1,38 @@
 const filters = [`All`, `Watchlist`, `History`, `Favorites`];
 
 
-export const generateFilters = (films) => {
+export const generateFilters = (cards) => {
   let index = 0;
 
   return filters.map((it) => {
     switch (it) {
       case `All`:
-        index = films.length;
+        index = cards.length;
         break;
       case `Watchlist`:
-        index = films.filter((card) => card.isWatched).length;
+        index = cards.filter((card) => card.isWatched).length;
         break;
       case `History`:
-        index = films.filter((card) => card.isLookingThrough).length;
+        index = cards.filter((card) => card.isLookingThrough).length;
         break;
       case `Favorites`:
-        index = films.filter((card) => card.isFavorites).length;
+        index = cards.filter((card) => card.isFavorites).length;
         break;
     }
 
     return {
       title: it,
       count: index
+    };
+  });
+};
+
+export const generateNoFilmFilters = () => {
+
+  return filters.map((it) => {
+    return {
+      title: it,
+      count: ``
     };
   });
 };
