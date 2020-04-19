@@ -51,20 +51,21 @@ const renderFilm = (filmListElement, film) => {
     popupButtonClose.addEventListener(`click`, () => {
       popupComponent.getElement().remove();
       popupComponent.removeElement();
-    })
+    });
 
     return popupComponent;
   };
 
+  let lastPopup;
+
   filmElements.forEach((el) => {
     el.addEventListener(`click`, () => {
-      const isPopup = document.querySelector(`.film-details`);
-      if (isPopup) {
-        isPopup.remove();
-        renderComponent(body, createPopupElement(film).getElement());
-      } else {
-        renderComponent(body, createPopupElement(film).getElement());
+      if (lastPopup) {
+        lastPopup.getElement().remove();
+        lastPopup.removeElement();
       }
+      lastPopup = createPopupElement(film);
+      renderComponent(body, lastPopup.getElement());
     });
   });
 };
@@ -95,22 +96,20 @@ if (!isFilms) {
   const filmsList = filmsBlock.querySelector(`.films-list__container`);
   films.slice(0, showingCardCount).forEach((film) => renderFilm(filmsList, film));
 
-  new Array(TOP_TWO)
-  .fill(``)
-  .forEach((it, i) => {
-    renderComponent(filmsContainerElement.getElement(), new TopFilmsComponent(rubricsForTop[i]).getElement());
+  const topComponents = Array.from({length: 2}, (it, i) => {
+    const component = new TopFilmsComponent(rubricsForTop[i]);
+    renderComponent(filmsContainerElement.getElement(), component.getElement());
+    return component;
   });
 
-  const ratedContainerElements = filmsContainerElement.getElement().querySelectorAll(`section.films-list--extra > .films-list__container`);
-
-  Array.from(ratedContainerElements).forEach((it) => {
-    const film = new FilmComponent();
-    switch (it.previousElementSibling.firstChild.data) {
+  topComponents.forEach((component, i) => {
+    const container = component.getElement().querySelector(`.films-list__container`);
+    switch (rubricsForTop[i]) {
       case `Top rated`:
-        getConditionFilms(films, TOP_TWO, `rate`).forEach((film) => renderFilm(it, film));
+        getConditionFilms(films, TOP_TWO, `rating`).forEach((film) => renderFilm(container, film));
         break;
       case `Most commented`:
-        getConditionFilms(films, TOP_TWO, `comments`).forEach((film) => renderFilm(it, film));
+        getConditionFilms(films, TOP_TWO, `comments`).forEach((film) => renderFilm(container, film));
         break;
     }
   });
