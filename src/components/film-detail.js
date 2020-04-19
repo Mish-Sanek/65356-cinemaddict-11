@@ -1,7 +1,8 @@
 import {months} from '../mock/const.js';
+import {createElement, getRandomIntegerNumber} from '../components/utils';
 
-export const createFilmDetailTemplate = (film) => {
-  const {title, director, writers, actors, poster, rating, releaseDate, runtime, country, genres, description, comments} = film;
+const createFilmDetailTemplate = (film) => {
+  const {title, director, writers, actors, poster, rating, year, runtime, country, genres, description, comments} = film;
 
   return (
     `<section class="film-details">
@@ -40,11 +41,11 @@ export const createFilmDetailTemplate = (film) => {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Release Date</td>
-                  <td class="film-details__cell">${releaseDate.getDay() + ` ` + months[releaseDate.getMonth()] + ` ` + releaseDate.getFullYear()}</td>
+                  <td class="film-details__cell"> ${getRandomIntegerNumber(1, 31)} ${months[getRandomIntegerNumber(0, months.length - 1)]} ${year}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Runtime</td>
-                  <td class="film-details__cell">${runtime.getHours() + `h ` + runtime.getMinutes() + `m`}</td>
+                  <td class="film-details__cell">${runtime}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>
@@ -159,3 +160,26 @@ export const createFilmDetailTemplate = (film) => {
     </section>`
   );
 };
+
+export default class Popup {
+  constructor(film) {
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createFilmDetailTemplate(this._film);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

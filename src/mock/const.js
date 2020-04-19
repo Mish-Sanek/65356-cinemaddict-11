@@ -37,3 +37,5 @@ export const months = [`January`, `February`, `March`, `April`, `May`, `June`, `
 export const genres = [`Musical`, `Cartoon`, `Action`, `Horror`, `Drama`, `Comedy`];
 
 export const emojies = [`smile`, `sleeping`, `puke`, `angry`];
+
+export const rubricsForTop = [`Top rated`, `Most commented`];
