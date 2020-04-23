@@ -1,8 +1,9 @@
-import {months} from '../mock/const.js';
-import {createElement, getRandomIntegerNumber} from '../components/utils';
+import {months} from '../mock/const';
+import {getRandomIntegerNumber} from '../utils/common';
+import AbstractComponent from './abstract-component';
 
 const createFilmDetailTemplate = (film) => {
-  const {title, director, writers, actors, poster, rating, year, runtime, country, genres, description, comments} = film;
+  const {title, director, writers, actors, poster, rating, year, runtime, country, genres, description, comments, isFavorites, isWatched, isLookingThrough} = film;
 
   return (
     `<section class="film-details">
@@ -65,11 +66,11 @@ const createFilmDetailTemplate = (film) => {
             </div>
           </div>
           <section class="film-details__controls">
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+            <input type="checkbox" ${isFavorites ? `checked` : ``} class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
             <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+            <input type="checkbox" ${isWatched ? `checked` : ``} class="film-details__control-input visually-hidden" id="watched" name="watched">
             <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+            <input type="checkbox" ${isLookingThrough ? `checked` : ``} class="film-details__control-input visually-hidden" id="favorite" name="favorite">
             <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
           </section>
         </div>
@@ -161,25 +162,17 @@ const createFilmDetailTemplate = (film) => {
   );
 };
 
-export default class Popup {
+export default class Popup extends AbstractComponent {
   constructor(film) {
+    super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmDetailTemplate(this._film);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setButtonCloseHandler(handler) {
+    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, handler);
   }
 }

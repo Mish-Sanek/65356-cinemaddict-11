@@ -1,5 +1,5 @@
-import {getRandomIntegerNumber, getRandomItem, shuffle, getTime} from '../components/utils';
 import {filmsName, filmsPosters, filmsDescription, genres, emojies} from '../mock/const';
+import {getRandomIntegerNumber, getRandomItem, shuffle, getTime} from '../utils/common';
 
 const generateComment = () => {
   return {

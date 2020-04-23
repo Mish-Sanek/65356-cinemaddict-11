@@ -1,7 +1,7 @@
-import {createElement} from '../components/utils';
+import {createElement} from '../utils/render';
 
 const createFilmTemplate = (film) => {
-  const {title, poster, rating, year, runtime, genres, description, comments} = film;
+  const {title, poster, rating, year, runtime, genres, description, comments, isFavorites, isWatched, isLookingThrough} = film;
 
   return (
     `<article class="film-card">
@@ -16,9 +16,9 @@ const createFilmTemplate = (film) => {
       <p class="film-card__description">${description.length >= 140 ? description.substring(138, description.length) + `...` : description}</p>
       <a class="film-card__comments">${comments.length > 1 ? comments.length + ` comments` : comments.length + ` comment`}</a>
       <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite">Mark as favorite</button>
+        <button class="film-card__controls-item ${isFavorites ? `film-card__controls-item--active` : ``} button film-card__controls-item--add-to-watchlist">Add to watchlist</button>
+        <button class="film-card__controls-item ${isWatched ? `film-card__controls-item--active` : ``} button film-card__controls-item--mark-as-watched">Mark as watched</button>
+        <button class="film-card__controls-item ${isLookingThrough ? `film-card__controls-item--active` : ``} button film-card__controls-item--favorite">Mark as favorite</button>
       </form>
     </article>`
   );
