@@ -15,22 +15,23 @@ const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 
 const randomRate = getRandomIntegerNumber(0, 20);
-renderComponent(header, new HeaderProfileComponent(randomRate).getElement());
+renderComponent(header, new HeaderProfileComponent(randomRate));
 
 const films = generateFilms(FILM_COUNT);
 const filters = generateFilters(films);
 
-renderComponent(main, new MainNavComponent(filters).getElement());
-renderComponent(main, new SortComponent(filters).getElement());
+renderComponent(main, new MainNavComponent(filters));
+renderComponent(main, new SortComponent());
+
 
 const filmsContainerElement = new FilmsComponent();
-renderComponent(main, filmsContainerElement.getElement());
+renderComponent(main, filmsContainerElement);
 
 const pageController = new PageController(filmsContainerElement);
 
 pageController.render(films);
 
 const footerStatistics = document.querySelector(`.footer__statistics`);
-renderComponent(footerStatistics, new FooterStatisticsComponent().getElement());
+renderComponent(footerStatistics, new FooterStatisticsComponent());
 const totalFilms = footerStatistics.querySelector(`p`);
 totalFilms.textContent = `${films.length} movies inside`;

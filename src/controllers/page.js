@@ -11,6 +11,7 @@ import {getConditionFilms} from '../utils/common';
 const TOP_TWO = 2;
 const SHOWING_CARD = 5;
 const FILM_COUNT_BY_BUTTON = 5;
+
 let showingFilmCount = SHOWING_CARD;
 
 const renderFilm = (filmsListElement, film) => {
@@ -41,13 +42,13 @@ const renderFilm = (filmsListElement, film) => {
 
   filmComponent.setClickHandler(() => {
     const isPopup = document.querySelector(`.film-details`);
-    const body = document.body;
+    const bodyElement = document.querySelector(`body`);
 
     if (isPopup) {
       isPopup.remove();
     }
 
-    renderComponent(body, createPopupElement(film));
+    renderComponent(bodyElement, createPopupElement(film));
   });
 };
 
@@ -67,6 +68,7 @@ const renderTopListFilms = (container, films) => {
   const ratedFilmsContainers = container.querySelectorAll(`section.films-list--extra > .films-list__container`);
 
   Array.from(ratedFilmsContainers).forEach((it) => {
+
     switch (it.previousElementSibling.firstChild.data) {
       case `Top rated`:
         getConditionFilms(films, TOP_TWO, `rating`).forEach((item) => renderFilm(it, item));
@@ -75,6 +77,7 @@ const renderTopListFilms = (container, films) => {
         getConditionFilms(films, TOP_TWO, `comments`).forEach((item) => renderFilm(it, item));
         break;
     }
+
   });
 };
 
@@ -96,7 +99,7 @@ export default class PageController {
 
       renderComponent(container, this._showMoreButton);
 
-      this._showMoreButton.setButtonCloseHandler(() => {
+      this._showMoreButton.setButtonClickHandler(() => {
         const showedFilms = showingFilmCount;
         showingFilmCount += FILM_COUNT_BY_BUTTON;
 

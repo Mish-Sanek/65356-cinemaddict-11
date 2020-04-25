@@ -1,4 +1,5 @@
-import {createElement} from '../utils/render';
+import AbstractComponent from './abstract-component';
+import {filmHandlerElements} from '../mock/const';
 
 const createFilmTemplate = (film) => {
   const {title, poster, rating, year, runtime, genres, description, comments, isFavorites, isWatched, isLookingThrough} = film;
@@ -24,25 +25,26 @@ const createFilmTemplate = (film) => {
   );
 };
 
-export default class Film {
+export default class Film extends AbstractComponent {
   constructor(film) {
+    super();
     this._film = film;
-    this._element = null;
   }
 
   getTemplate() {
     return createFilmTemplate(this._film);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
+  getHandlerElements() {
+    const elements = [];
+    filmHandlerElements.forEach((it) => elements.push(this.getElement().querySelector(it)));
 
-    return this._element;
+    return elements;
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(handler) {
+    this.getHandlerElements().forEach((it) => {
+      it.addEventListener(`click`, handler);
+    });
   }
 }

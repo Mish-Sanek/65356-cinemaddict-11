@@ -39,3 +39,9 @@ export const genres = [`Musical`, `Cartoon`, `Action`, `Horror`, `Drama`, `Comed
 export const emojies = [`smile`, `sleeping`, `puke`, `angry`];
 
 export const rubricsForTop = [`Top rated`, `Most commented`];
+
+export const filmHandlerElements = [
+  `.film-card__poster`,
+  `.film-card__title`,
+  `.film-card__comments`
+];
