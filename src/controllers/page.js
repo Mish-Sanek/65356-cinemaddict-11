@@ -56,29 +56,16 @@ const renderFilms = (filmsListElement, films) => {
   films.forEach((film) => renderFilm(filmsListElement, film));
 };
 
-const createFilmsContainers = (place, count) => {
-  new Array(count)
-    .fill(``)
-    .forEach((i) => {
-      renderComponent(place, new TopFilmsComponent(rubricsForTop[i]));
-    });
+const createFilmsContainers = (place) => {
+  for (let i = 0; i < rubricsForTop.length; i++) {
+    renderComponent(place, new TopFilmsComponent(rubricsForTop[i]));
+  }
 };
 
 const renderTopListFilms = (container, films) => {
-  const ratedFilmsContainers = container.querySelectorAll(`section.films-list--extra > .films-list__container`);
-
-  Array.from(ratedFilmsContainers).forEach((it) => {
-
-    switch (it.previousElementSibling.firstChild.data) {
-      case `Top rated`:
-        getConditionFilms(films, TOP_TWO, `rating`).forEach((item) => renderFilm(it, item));
-        break;
-      case `Most commented`:
-        getConditionFilms(films, TOP_TWO, `comments`).forEach((item) => renderFilm(it, item));
-        break;
-    }
-
-  });
+  const [topRatedContainer, mostCommentedContainer] = container.querySelectorAll(`section.films-list--extra > .films-list__container`);
+  getConditionFilms(films, TOP_TWO, `rating`).forEach((item) => renderFilm(topRatedContainer, item));
+  getConditionFilms(films, TOP_TWO, `comments`).forEach((item) => renderFilm(mostCommentedContainer, item));
 };
 
 export default class PageController {
