@@ -28,8 +28,8 @@ export const remove = (component) => {
 };
 
 export const replaceSort = (container) => {
-  const sortElement = document.querySelector(`.sort`);
-  const filmsContainerElement = document.querySelector(`.films`);
+  const sortElement = container.querySelector(`.sort`);
+  const filmsContainerElement = container.querySelector(`.films`);
 
   container.insertBefore(sortElement, filmsContainerElement);
 };
