@@ -70,12 +70,13 @@ const renderTopListFilms = (container, films) => {
 };
 
 export default class PageController {
-  constructor(container) {
+  constructor(container, main) {
     this._container = container;
     this._showMoreButton = new ShowMoreButton();
     this._noFilmComponent = new NoFilmComponent();
     this._filmsListBlockComponent = new FilmsListBlockComponent();
     this._sortComponent = new SortComponent();
+    this._main = main;
   }
 
   render(films) {
@@ -100,8 +101,7 @@ export default class PageController {
       });
     };
 
-    const main = document.querySelector(`.main`);
-    renderComponent(main, this._sortComponent);
+    renderComponent(this._main, this._sortComponent);
 
     const container = this._container.getElement();
     const isFilms = films.length;
@@ -140,12 +140,6 @@ export default class PageController {
 
       filmsListElement.innerHTML = ``;
       renderFilms(filmsListElement, sortedFilms);
-
-      if (sortType === SortType.Default) {
-        renderShowMoreButton();
-      } else {
-        remove(this._showMoreButton);
-      }
     });
   }
 }

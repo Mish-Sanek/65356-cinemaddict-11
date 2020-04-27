@@ -24,7 +24,7 @@ renderComponent(main, new MainNavComponent(filters));
 const filmsContainerElement = new FilmsComponent();
 renderComponent(main, filmsContainerElement);
 
-const pageController = new PageController(filmsContainerElement);
+const pageController = new PageController(filmsContainerElement, main);
 
 pageController.render(films);
 
