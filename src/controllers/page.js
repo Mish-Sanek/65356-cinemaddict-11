@@ -2,6 +2,7 @@ import FilmComponent from '../components/film';
 import ShowMoreButton from '../components/show-more';
 import NoFilmComponent from '../components/no-film';
 import FilmsListBlockComponent from '../components/films-list-block';
+import SortComponent, {SortType} from '../components/sort-block';
 import TopFilmsComponent from '../components/top-films';
 import PopupComponent from '../components/film-detail';
 import {renderComponent, remove} from '../utils/render';
@@ -74,6 +75,7 @@ export default class PageController {
     this._showMoreButton = new ShowMoreButton();
     this._noFilmComponent = new NoFilmComponent();
     this._filmsListBlockComponent = new FilmsListBlockComponent();
+    this._sortComponent = new SortComponent();
   }
 
   render(films) {
@@ -98,6 +100,9 @@ export default class PageController {
       });
     };
 
+    const main = document.querySelector(`.main`);
+    renderComponent(main, this._sortComponent);
+
     const container = this._container.getElement();
     const isFilms = films.length;
 
@@ -116,5 +121,31 @@ export default class PageController {
     createFilmsContainers(container, TOP_TWO);
 
     renderTopListFilms(container, films);
+
+    this._sortComponent.setSortTypeChangeHandler((sortType) => {
+
+      let sortedFilms = [];
+
+      switch (sortType) {
+        case SortType.DATE:
+          sortedFilms = films.slice().sort((a, b) => b.year - a.year);
+          break;
+        case SortType.RATING:
+          sortedFilms = films.slice().sort((a, b) => b.rating - a.rating);
+          break;
+        case SortType.DEFAULT:
+          sortedFilms = films.slice(0, showingFilmCount);
+          break;
+      }
+
+      filmsListElement.innerHTML = ``;
+      renderFilms(filmsListElement, sortedFilms);
+
+      if (sortType === SortType.Default) {
+        renderShowMoreButton();
+      } else {
+        remove(this._showMoreButton);
+      }
+    });
   }
 }

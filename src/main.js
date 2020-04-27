@@ -1,13 +1,12 @@
 import HeaderProfileComponent from './components/header-profile';
 import MainNavComponent from './components/main-nav';
-import SortComponent from './components/sort-block';
 import FilmsComponent from './components/films-block';
 import PageController from './controllers/page';
 import FooterStatisticsComponent from './components/footer-statistics-info';
 import {generateFilms} from './mock/film';
 import {generateFilters} from './mock/filters';
 import {getRandomIntegerNumber} from './utils/common';
-import {renderComponent} from './utils/render';
+import {renderComponent, replaceSort} from './utils/render';
 
 const FILM_COUNT = 20;
 
@@ -21,8 +20,6 @@ const films = generateFilms(FILM_COUNT);
 const filters = generateFilters(films);
 
 renderComponent(main, new MainNavComponent(filters));
-renderComponent(main, new SortComponent());
-
 
 const filmsContainerElement = new FilmsComponent();
 renderComponent(main, filmsContainerElement);
@@ -30,6 +27,8 @@ renderComponent(main, filmsContainerElement);
 const pageController = new PageController(filmsContainerElement);
 
 pageController.render(films);
+
+replaceSort(main);
 
 const footerStatistics = document.querySelector(`.footer__statistics`);
 renderComponent(footerStatistics, new FooterStatisticsComponent());

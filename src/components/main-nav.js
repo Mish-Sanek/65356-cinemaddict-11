@@ -26,7 +26,7 @@ const createMainNav = (filters) => {
 
 export default class MainNav extends AbstractComponent {
   constructor(filters) {
-    super(filters);
+    super();
     this._filters = filters;
   }
 
