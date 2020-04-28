@@ -1,12 +1,11 @@
 import HeaderProfileComponent from './components/header-profile';
 import MainNavComponent from './components/main-nav';
-import FilmsComponent from './components/films-block';
 import PageController from './controllers/page';
 import FooterStatisticsComponent from './components/footer-statistics-info';
 import {generateFilms} from './mock/film';
 import {generateFilters} from './mock/filters';
 import {getRandomIntegerNumber} from './utils/common';
-import {renderComponent, replaceSort} from './utils/render';
+import {renderComponent} from './utils/render';
 
 const FILM_COUNT = 20;
 
@@ -21,14 +20,9 @@ const filters = generateFilters(films);
 
 renderComponent(main, new MainNavComponent(filters));
 
-const filmsContainerElement = new FilmsComponent();
-renderComponent(main, filmsContainerElement);
 
-const pageController = new PageController(filmsContainerElement, main);
-
+const pageController = new PageController(main);
 pageController.render(films);
-
-replaceSort(main);
 
 const footerStatistics = document.querySelector(`.footer__statistics`);
 renderComponent(footerStatistics, new FooterStatisticsComponent());

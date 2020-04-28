@@ -26,10 +26,3 @@ export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
 };
-
-export const replaceSort = (container) => {
-  const sortElement = container.querySelector(`.sort`);
-  const filmsContainerElement = container.querySelector(`.films`);
-
-  container.insertBefore(sortElement, filmsContainerElement);
-};

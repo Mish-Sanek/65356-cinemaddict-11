@@ -1,3 +1,4 @@
+import FilmsComponent from "../components/films-block";
 import FilmComponent from '../components/film';
 import ShowMoreButton from '../components/show-more';
 import NoFilmComponent from '../components/no-film';
@@ -70,8 +71,7 @@ const renderTopListFilms = (container, films) => {
 };
 
 export default class PageController {
-  constructor(container, main) {
-    this._container = container;
+  constructor(main) {
     this._showMoreButton = new ShowMoreButton();
     this._noFilmComponent = new NoFilmComponent();
     this._filmsListBlockComponent = new FilmsListBlockComponent();
@@ -103,7 +103,11 @@ export default class PageController {
 
     renderComponent(this._main, this._sortComponent);
 
-    const container = this._container.getElement();
+    this._filmsContainerElement = new FilmsComponent();
+    renderComponent(this._main, this._filmsContainerElement);
+
+
+    const container = this._filmsContainerElement.getElement();
     const isFilms = films.length;
 
     if (!isFilms) {
